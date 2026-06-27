@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prepare · DeoDap eSign</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand"><a href="/" style="color:inherit">← DeoDap eSign</a></div>
+    <div class="right">
+      <span id="docTitle" class="muted"></span>
+      <button class="btn sm" id="saveBtn">Save draft</button>
+      <button class="btn primary sm" id="sendBtn">Send for signature</button>
+    </div>
+  </div>
+
+  <div class="workspace">
+    <div class="sidebar">
+      <h3 style="margin-top:0">Recipients <span class="muted">(sign in order)</span></h3>
+      <div id="recipList"></div>
+      <div class="row2">
+        <input id="rName" type="text" placeholder="Name" />
+        <input id="rEmail" type="email" placeholder="Email" />
+      </div>
+      <button class="btn sm" id="addRecip" style="margin-top:8px;width:100%">+ Add recipient</button>
+
+      <h3>Fields</h3>
+      <div class="muted small" style="margin-bottom:8px">Pick a recipient, choose a field, then click on the page to place it.</div>
+      <div class="palette" id="palette"></div>
+
+      <h3>Required</h3>
+      <label class="flex" style="gap:8px"><input type="checkbox" id="reqToggle" checked style="width:auto" /> New fields are required</label>
+    </div>
+
+    <div class="canvas-area" id="canvas"><div class="empty">Loading document…</div></div>
+  </div>
+
+  <div class="overlay" id="overlay"><div class="modal" id="modal"></div></div>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/prepare.js"></script>
+</body>
+</html>

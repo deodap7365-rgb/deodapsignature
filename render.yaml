@@ -1,0 +1,39 @@
+# Render Blueprint for DeoDap eSign.
+#
+# Deploy:
+#   1. Push this `esign` folder to a GitHub repository.
+#   2. Render dashboard -> New -> Blueprint -> select the repo -> Apply.
+#   Render automatically sets RENDER_EXTERNAL_URL, so unique signing links work
+#   out of the box (no manual URL config needed).
+#
+services:
+  - type: web
+    name: deodap-esign
+    runtime: node
+    plan: free                 # free tier = ephemeral disk (data resets on redeploy/restart)
+    buildCommand: npm install
+    startCommand: node server.js
+    healthCheckPath: /healthz
+    envVars:
+      - key: JWT_SECRET
+        generateValue: true     # Render generates a strong secret for you
+      - key: MAIL_FROM
+        value: DeoDap eSign <no-reply@deodap.app>
+
+      # ----- Real email delivery (optional): add these in the dashboard -----
+      # SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS
+      # Without SMTP the app still works: each signer's unique link is shown in
+      # the dashboard (Track) and right after you click Send, ready to copy.
+
+      # ----- Persistent storage (recommended for production) -----
+      # Free tier has no persistent disk. To keep documents across restarts:
+      #   1) change `plan: free` to `plan: starter`
+      #   2) uncomment the two env vars and the `disk:` block below
+      # - key: DATA_DIR
+      #   value: /var/data/data
+      # - key: UPLOAD_DIR
+      #   value: /var/data/uploads
+    # disk:
+    #   name: esign-data
+    #   mountPath: /var/data
+    #   sizeGB: 1
